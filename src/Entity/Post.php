@@ -41,10 +41,11 @@ class Post
      * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable")
      */
-    private $publishedAt;
+    private DateTimeImmutable $publishedAt;
 
     /**
      * Post constructor.
+     * @throws \Exception
      */
     public function __construct()
     {

@@ -34,7 +34,22 @@ class Comment
      * @var DateTimeImmutable
      * @ORM\Column(type="datetime_immutable")
      */
-    private $publishedAt;
+    private DateTimeImmutable $publishedAt;
+
+    /**
+     * @var Post
+     * @ORM\ManyToOne(targetEntity="Post")
+     */
+    private Post $post;
+
+    /**
+     * Comment constructor.
+     * @throws \Exception
+     */
+    public function __construct()
+    {
+        $this->publishedAt = new DateTimeImmutable();
+    }
 
     /**
      * @return int|null
@@ -90,6 +105,22 @@ class Comment
     public function setPublishedAt(DateTimeImmutable $publishedAt): void
     {
         $this->publishedAt = $publishedAt;
+    }
+
+    /**
+     * @return Post
+     */
+    public function getPost(): Post
+    {
+        return $this->post;
+    }
+
+    /**
+     * @param Post $post
+     */
+    public function setPost(Post $post): void
+    {
+        $this->post = $post;
     }
 
 }
