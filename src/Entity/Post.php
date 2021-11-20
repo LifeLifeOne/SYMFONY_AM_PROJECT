@@ -44,6 +44,14 @@ class Post
     private $duration;
 
     /**
+     * Post constructor.
+     */
+    public function __construct()
+    {
+        $this->publishedAt = new DateTimeImmutable();
+    }
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
