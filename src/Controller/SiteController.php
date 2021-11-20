@@ -22,9 +22,16 @@ class SiteController extends AbstractController
      */
     public function index(): Response
     {
-        $recettes = $this->getDoctrine()->getRepository(Post::class)->getAllPosts();
+        $total = $this->getDoctrine()->getRepository(Post::class)->count([]);
+        $recettes = $this->getDoctrine()->getRepository(Post::class)->getPaginatedPosts(
+            1,
+            6
+        );
+        $pages = ceil($total / 10);
+
         return $this->render("index.html.twig", [
-            "recettes" => $recettes
+            "recettes" => $recettes,
+            "pages" => $pages
         ]);
     }
 

@@ -10,4 +10,9 @@
         <small>{{ recette.comments|length }} commentaire(s)</small><br>
         <a href="{{ path("recette_read", { id: recette.id }) }}">Consulter la recette</a>
     {% endfor %}
+    <ul>
+        {% for page in  1..pages %}
+            <li><a href="{{ path("index", { page: page}) }}">{{ page }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}
