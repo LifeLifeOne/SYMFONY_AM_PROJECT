@@ -26,7 +26,7 @@ class PostType extends AbstractType
                 "label" => "Nom de la recette :"
             ])
             ->add("duration", TextType::class, [
-                "label" => "Temps de préparation :"
+                "label" => "Temps de préparation (En minutes) :"
             ])
             ->add("content", TextareaType::class, [
                 "label" => "Ta recette :"

@@ -28,8 +28,8 @@ class Comment
      * @Assert\Length(
      *      min = 2,
      *      max = 30,
-     *      minMessage = "Votre pseudo doit faire minimum {{ limit }} charactères",
-     *      maxMessage = "Votre pseudo doit faire maximum {{ limit }} charactères"
+     *      minMessage = "Votre pseudo doit contenir minimum {{ limit }} caractères",
+     *      maxMessage = "Votre pseudo doit contenir maximum {{ limit }} caractères"
      * )
      */
     private string $author;
@@ -43,8 +43,8 @@ class Comment
      * @Assert\Length(
      *      min = 10,
      *      max = 200,
-     *      minMessage = "Votre commentaire doit faire minimum {{ limit }} charactères",
-     *      maxMessage = "Votre commentaire doit faire maximum {{ limit }} charactères"
+     *      minMessage = "Votre commentaire doit contenir minimum {{ limit }} caractères",
+     *      maxMessage = "Votre commentaire doit contenir maximum {{ limit }} caractères"
      * )
      */
     private string $content;

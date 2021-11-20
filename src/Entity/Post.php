@@ -7,6 +7,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -24,20 +25,47 @@ class Post
     /**
      * @var string
      * @ORM\Column
+     * @Assert\NotBlank(
+     *     message = "Veuillez renseigner un titre"
+     * )
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 50,
+     *      minMessage = "Votre titre doit contenir minimum {{ limit }} caractères",
+     *      maxMessage = "Votre titre doit contenir maximum {{ limit }} caractères"
+     * )
      */
     private string $title;
 
     /**
      * @var string
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *     message = "Veuillez renseigner une recette"
+     * )
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 1000,
+     *      minMessage = "La recette doit contenir minimum {{ limit }} caractères",
+     *      maxMessage = "La recette doit contenir minimum {{ limit }} caractères",
+     * )
      */
     private string $content;
 
     /**
-     * @var string
+     * @var int
      * @ORM\Column
+     * @Assert\NotBlank(
+     *     message = "Veuillez renseigner un temps de préparation"
+     * )
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 3,
+     *      minMessage = "La durée de préparation minimum est de 5 minutes",
+     *      maxMessage = "La durée de préparation maximum est de 180 minutes"
+     * )
      */
-    private string $duration;
+    private int $duration;
 
     /**
      * @var DateTimeImmutable
@@ -118,15 +146,15 @@ class Post
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getDuration(): string
+    public function getDuration(): int
     {
         return $this->duration;
     }
 
     /**
-     * @param string $duration
+     * @param int $duration
      */
     public function setDuration(string $duration): void
     {
