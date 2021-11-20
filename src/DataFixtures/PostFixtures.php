@@ -20,7 +20,7 @@ class PostFixtures extends Fixture
     {
         for ($i = 1; $i <= 50; $i++) {
             $post = new Post();
-            $post->setTitle("Recette :" . $i);
+            $post->setTitle("Recette : " . $i);
             $post->setContent("Contenu " . $i);
             $post->setDuration("Duration " . $i);
             $manager->persist($post);

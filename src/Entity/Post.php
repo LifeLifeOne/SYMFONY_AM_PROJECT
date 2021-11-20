@@ -26,22 +26,22 @@ class Post
     private string $title;
 
     /**
-     * @var DateTimeImmutable
-     * @ORM\Column(type="datetime_immutable")
-     */
-    private $publishedAt;
-
-    /**
      * @var string
      * @ORM\Column(type="text")
      */
-    private $content;
+    private string $content;
 
     /**
      * @var string
      * @ORM\Column
      */
-    private $duration;
+    private string $duration;
+
+    /**
+     * @var DateTimeImmutable
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $publishedAt;
 
     /**
      * Post constructor.

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>{{ recette.title }}</h1>
+
+    <p>{{ recette.content }}</p>
+    <small>{{ recette.duration }}</small><br>
+    <strong>{{ recette.publishedAt|date("d/m/Y") }}</strong>
+
+{% endblock %}

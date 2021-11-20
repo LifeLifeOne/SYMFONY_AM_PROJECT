@@ -6,6 +6,7 @@
         <h3>{{ recette.title }}</h3>
         <p>{{ recette.content }}</p>
         <small>{{ recette.duration }}</small><br>
-        <strong>{{ recette.publishedAt|date("d/m/Y") }}</strong>
+        <strong>{{ recette.publishedAt|date("d/m/Y") }}</strong><br>
+        <a href="{{ path("recette_read", { id: recette.id }) }}">Consulter la recette</a>
     {% endfor %}
 {% endblock %}

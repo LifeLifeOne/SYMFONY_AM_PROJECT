@@ -9,10 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class HomeController
+ * Class SiteController
  * @package App\Controller
  */
-class HomeController extends AbstractController
+class SiteController extends AbstractController
 {
     /**
      * @Route("/", name="index")
@@ -23,6 +23,19 @@ class HomeController extends AbstractController
         $recettes = $this->getDoctrine()->getRepository(Post::class)->findAll();
         return $this->render("index.html.twig", [
             "recettes" => $recettes
+        ]);
+    }
+
+    /**
+     * @Route("/recette-{id}", name="recette_read")
+     * @param Post $recette
+     * @return Response
+     */
+    public function read(Post $recette): Response
+    {
+//      $recette = $this->getDoctrine()->getRepository(Post::class)->find($id);
+        return $this->render("recette.html.twig", [
+            "recette" => $recette
         ]);
     }
 
