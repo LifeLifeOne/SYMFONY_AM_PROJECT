@@ -20,18 +20,27 @@ class SiteController extends AbstractController
      * @Route("/", name="index")
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $limit = $request->get("limit", 6);
+        $page = $request->get("page", 1);
         $total = $this->getDoctrine()->getRepository(Post::class)->count([]);
         $recettes = $this->getDoctrine()->getRepository(Post::class)->getPaginatedPosts(
-            1,
-            6
+            $page,
+            $limit
         );
-        $pages = ceil($total / 10);
+        $pages = ceil($total / $limit);
+        $range = range(
+            max($page - 2, 1),
+            min($page + 2, $pages)
+        );
 
         return $this->render("index.html.twig", [
             "recettes" => $recettes,
-            "pages" => $pages
+            "pages" => $pages,
+            "page" => $page,
+            "limit" => $limit,
+            "range" => $range
         ]);
     }
 

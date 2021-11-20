@@ -10,9 +10,18 @@
         <small>{{ recette.comments|length }} commentaire(s)</small><br>
         <a href="{{ path("recette_read", { id: recette.id }) }}">Consulter la recette</a>
     {% endfor %}
+
     <ul>
-        {% for page in  1..pages %}
-            <li><a href="{{ path("index", { page: page}) }}">{{ page }}</a></li>
+        {%  if page > 1 %}
+            <li><a href="{{ path("index", { page: page - 1 }) }}">Précédent</a></li>
+        {% endif %}
+
+        {% for p in range %}
+            <li><a {{ page == p ? "class='disabled'" : "" }} href="{{ path("index", { page: p }) }}">{{ p }}</a></li>
         {% endfor %}
+
+        {%  if page < pages %}
+            <li><a href="{{ path("index", { page: page + 1 }) }}">Suivant</a></li>
+        {% endif %}
     </ul>
 {% endblock %}
