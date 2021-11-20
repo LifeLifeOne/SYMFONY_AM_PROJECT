@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Entity\Comment;
@@ -37,17 +36,19 @@ class SiteController extends AbstractController
      */
     public function read(Request $request, Post $recette): Response
     {
-//      $recette = $this->getDoctrine()->getRepository(Post::class)->find($id);
         $comment = new Comment();
         $comment->setPost($recette);
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+
             $this->getDoctrine()->getManager()->persist($comment);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute("recette_read", [
                 "id" => $recette->getId()
             ]);
         }
+
         return $this->render("recette.html.twig", [
             "recette" => $recette,
             "form" => $form->createView()
