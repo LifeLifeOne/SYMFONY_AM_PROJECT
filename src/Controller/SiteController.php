@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\CommentType;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,12 +25,14 @@ class SiteController extends AbstractController
     {
         $limit = $request->get("limit", 6);
         $page = $request->get("page", 1);
-        $total = $this->getDoctrine()->getRepository(Post::class)->count([]);
+
+        /** @var Paginator $recettes */
         $recettes = $this->getDoctrine()->getRepository(Post::class)->getPaginatedPosts(
             $page,
             $limit
         );
-        $pages = ceil($total / $limit);
+
+        $pages = ceil($recettes->count() / $limit);
         $range = range(
             max($page - 2, 1),
             min($page + 2, $pages)
