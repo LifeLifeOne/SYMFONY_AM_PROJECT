@@ -44,6 +44,12 @@ class Post
     private DateTimeImmutable $publishedAt;
 
     /**
+     * @var Comment
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     */
+    private Comment $comments;
+
+    /**
      * Post constructor.
      * @throws \Exception
      */
@@ -123,5 +129,22 @@ class Post
     {
         $this->duration = $duration;
     }
+
+    /**
+     * @return Comment
+     */
+    public function getComments(): array
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param Comment $comments
+     */
+    public function setComments(Comment $comments): void
+    {
+        $this->comments = $comments;
+    }
+
 
 }
