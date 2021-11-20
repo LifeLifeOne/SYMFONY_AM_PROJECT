@@ -21,22 +21,25 @@ class Post
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column
      */
     private string $title;
 
     /**
      * @var DateTimeImmutable
+     * @ORM\Column(type="datetime_immutable")
      */
     private $publishedAt;
 
     /**
      * @var string
+     * @ORM\Column(type="text")
      */
     private $content;
 
     /**
      * @var string
+     * @ORM\Column
      */
     private $duration;
 
