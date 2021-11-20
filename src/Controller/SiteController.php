@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\CommentType;
+use App\Form\PostType;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,6 +53,7 @@ class SiteController extends AbstractController
      * @param Request $request
      * @param Post $recette
      * @return Response
+     * @throws \Exception
      */
     public function read(Request $request, Post $recette): Response
     {
@@ -70,6 +72,32 @@ class SiteController extends AbstractController
 
         return $this->render("recette.html.twig", [
             "recette" => $recette,
+            "form" => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/publier-recette", name="recette_create")
+     * @param Request $request
+     * @return Response
+     * @throws \Exception
+     */
+    public function create(Request $request): Response
+    {
+        $recette = new Post();
+
+        $form = $this->createForm(PostType::class, $recette)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->getDoctrine()->getManager()->persist($recette);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute("recette_read", [
+                "id" => $recette->getId()
+            ]);
+        }
+
+        return $this->render("create.html.twig", [
             "form" => $form->createView()
         ]);
     }

@@ -2,6 +2,7 @@
 
 {% block body %}
     <h1>Les recettes d'Adrien</h1>
+    <a href="{{ path("recette_create") }}">Publier une nouvelle recette</a>
     {% for recette in recettes %}
         <h3>{{ recette.title }}</h3>
         <p>{{ recette.content }}</p>
