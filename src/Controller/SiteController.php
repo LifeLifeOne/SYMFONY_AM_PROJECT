@@ -3,8 +3,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
+use App\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,14 +31,26 @@ class SiteController extends AbstractController
 
     /**
      * @Route("/recette-{id}", name="recette_read")
+     * @param Request $request
      * @param Post $recette
      * @return Response
      */
-    public function read(Post $recette): Response
+    public function read(Request $request, Post $recette): Response
     {
 //      $recette = $this->getDoctrine()->getRepository(Post::class)->find($id);
+        $comment = new Comment();
+        $comment->setPost($recette);
+        $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->persist($comment);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute("recette_read", [
+                "id" => $recette->getId()
+            ]);
+        }
         return $this->render("recette.html.twig", [
-            "recette" => $recette
+            "recette" => $recette,
+            "form" => $form->createView()
         ]);
     }
 

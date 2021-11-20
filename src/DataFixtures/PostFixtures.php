@@ -24,7 +24,7 @@ class PostFixtures extends Fixture
             $post = new Post();
             $post->setTitle("Recette : " . $i);
             $post->setContent("Contenu " . $i);
-            $post->setDuration("Duration " . $i);
+            $post->setDuration("Temps de préparation: " . rand(5, 60) . " minutes");
             $manager->persist($post);
 
             for ($j = 1; $j <= rand(5,10); $j++) {

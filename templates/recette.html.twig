@@ -8,4 +8,15 @@
     <small>{{ recette.duration }}</small><br>
     <strong>{{ recette.publishedAt|date("d/m/Y") }}</strong>
 
+    {{ form_start(form) }}
+        {{ form_row(form.author) }}
+        {{ form_row(form.content) }}
+        <button type="submit">Envoyer</button>
+    {{ form_end(form) }}
+    <ul>
+        {% for comment in recette.comments %}
+            <li>{{ comment.author }}: {{ comment.content }}</li>
+        {% endfor %}
+    </ul>
+
 {% endblock %}
