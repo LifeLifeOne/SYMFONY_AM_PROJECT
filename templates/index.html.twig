@@ -7,6 +7,7 @@
         <p>{{ recette.content }}</p>
         <small>{{ recette.duration }}</small><br>
         <strong>{{ recette.publishedAt|date("d/m/Y") }}</strong><br>
+        <small>{{ recette.comments|length }} commentaire(s)</small><br>
         <a href="{{ path("recette_read", { id: recette.id }) }}">Consulter la recette</a>
     {% endfor %}
 {% endblock %}

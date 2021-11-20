@@ -20,7 +20,7 @@ class SiteController extends AbstractController
      */
     public function index(): Response
     {
-        $recettes = $this->getDoctrine()->getRepository(Post::class)->findAll();
+        $recettes = $this->getDoctrine()->getRepository(Post::class)->getAllPosts();
         return $this->render("index.html.twig", [
             "recettes" => $recettes
         ]);
