@@ -22,16 +22,30 @@ class Comment
     /**
      * @var string
      * @ORM\Column
-     * @Assert\NotBlank
-     * @Assert\Length(min=3)
+     * @Assert\NotBlank(
+     *     message = "Veuillez renseigner un pseudo"
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 30,
+     *      minMessage = "Votre pseudo doit faire {{ limit }} charactères minimum",
+     *      maxMessage = "Votre pseudo doit faire {{ limit }} charactères maximum"
+     * )
      */
     private string $author;
 
     /**
      * @var string
      * @ORM\Column(type="text")
-     * @Assert\NotBlank
-     * @Assert\Length(min=10)
+     * @Assert\NotBlank(
+     *     message = "Le commentaire ne peut pas être vide"
+     * )
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 200,
+     *      minMessage = "Votre commentaire doit faire {{ limit }} charactères minimum",
+     *      maxMessage = "Votre commentaire doit faire {{ limit }} charactères maximum"
+     * )
      */
     private string $content;
 
