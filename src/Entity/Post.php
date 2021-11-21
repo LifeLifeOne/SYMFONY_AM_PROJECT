@@ -98,9 +98,9 @@ class Post
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -130,9 +130,9 @@ class Post
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -146,9 +146,9 @@ class Post
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getDuration(): int
+    public function getDuration(): ?int
     {
         return $this->duration;
     }

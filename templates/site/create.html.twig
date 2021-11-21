@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Publier une nouvelle recette</h1>
+
+    {% include 'site/_form.html.twig' with { form: form, buttonName: 'Publier'} %}
+{% endblock %}

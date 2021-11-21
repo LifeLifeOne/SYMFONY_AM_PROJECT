@@ -39,7 +39,7 @@ class SiteController extends AbstractController
             min($page + 2, $pages)
         );
 
-        return $this->render("index.html.twig", [
+        return $this->render("site/index.html.twig", [
             "recettes" => $recettes,
             "pages" => $pages,
             "page" => $page,
@@ -70,7 +70,7 @@ class SiteController extends AbstractController
             ]);
         }
 
-        return $this->render("recette.html.twig", [
+        return $this->render("site/recette.html.twig", [
             "recette" => $recette,
             "form" => $form->createView()
         ]);
@@ -97,7 +97,31 @@ class SiteController extends AbstractController
             ]);
         }
 
-        return $this->render("create.html.twig", [
+        return $this->render("site/create.html.twig", [
+            "form" => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/modifier-recette/{id}", name="recette_update")
+     * @param Request $request
+     * @param Post $recette
+     * @return Response
+     * @throws \Exception
+     */
+    public function update(Request $request, Post $recette): Response
+    {
+        $form = $this->createForm(PostType::class, $recette)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute("recette_read", [
+                "id" => $recette->getId()
+            ]);
+        }
+
+        return $this->render("site/update.html.twig", [
             "form" => $form->createView()
         ]);
     }
