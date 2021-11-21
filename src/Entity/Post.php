@@ -41,7 +41,7 @@ class Post
      * @var string|null
      * @ORM\Column
      */
-    private ?string $picture = null;
+    private ?string $image = null;
 
     /**
      * @var string
@@ -122,17 +122,17 @@ class Post
     /**
      * @return string|null
      */
-    public function getPicture(): ?string
+    public function getImage(): ?string
     {
-        return $this->picture;
+        return $this->image;
     }
 
     /**
-     * @param string|null $picture
+     * @param string|null $image
      */
-    public function setPicture(?string $picture): void
+    public function setImage(?string $image): void
     {
-        $this->picture = $picture;
+        $this->image = $image;
     }
 
     /**

@@ -8,9 +8,11 @@ use App\Form\CommentType;
 use App\Form\PostType;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * Class SiteController
@@ -79,16 +81,30 @@ class SiteController extends AbstractController
     /**
      * @Route("/publier-recette", name="recette_create")
      * @param Request $request
+     * @param SluggerInterface $slugger
      * @return Response
-     * @throws \Exception
      */
-    public function create(Request $request): Response
+    public function create(Request $request, SluggerInterface $slugger, string $uploadsAbsoluteDir, string $uploadsRelativeDir): Response
     {
         $recette = new Post();
 
         $form = $this->createForm(PostType::class, $recette)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $file */
+            $file = $form->get("file")->getData();
+
+            $fileName = sprintf(
+                "%s_%s.%s",
+                $slugger->slug($file->getClientOriginalName()),
+                uniqid(),
+                $file->getClientOriginalExtension()
+            );
+
+            $file->move($uploadsAbsoluteDir, $fileName);
+
+            $recette->setImage($uploadsRelativeDir . "/" . $fileName);
 
             $this->getDoctrine()->getManager()->persist($recette);
             $this->getDoctrine()->getManager()->flush();

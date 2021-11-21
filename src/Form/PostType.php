@@ -40,7 +40,8 @@ class PostType extends AbstractType
                     new Image(),
                     new NotNull()
                 ]
-            ]);
+            ])
+        ;
     }
 
     /**

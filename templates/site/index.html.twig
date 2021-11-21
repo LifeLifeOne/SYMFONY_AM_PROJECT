@@ -6,7 +6,7 @@
 
     {% for recette in recettes %}
         <h3>{{ recette.title }}</h3>
-        <img src="{{ asset(recette.picture) }}" alt="{{ recette.title }}"><br>
+        <img src="{{ asset(recette.image) }}" alt="{{ recette.title }}"><br>
         <small>{{ recette.duration }}</small><br>
         <strong>{{ recette.publishedAt|date("d/m/Y") }}</strong><br>
         <small>{{ recette.comments|length }} commentaire(s)</small><br>

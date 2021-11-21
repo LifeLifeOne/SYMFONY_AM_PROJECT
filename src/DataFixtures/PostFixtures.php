@@ -23,7 +23,7 @@ class PostFixtures extends Fixture
         for ($i = 1; $i <= 100; $i++) {
             $post = new Post();
             $post->setTitle("Recette : " . $i);
-            $post->setPicture("http://via.placeholder.com/300x150");
+            $post->setImage("http://via.placeholder.com/300x150");
             $post->setContent("Contenu " . $i);
             $post->setDuration("Temps de préparation: " . rand(5, 60) . " minutes");
             $manager->persist($post);
