@@ -38,6 +38,12 @@ class Post
     private string $title;
 
     /**
+     * @var string|null
+     * @ORM\Column
+     */
+    private ?string $picture = null;
+
+    /**
      * @var string
      * @ORM\Column(type="text")
      * @Assert\NotBlank(
@@ -53,7 +59,7 @@ class Post
     private string $content;
 
     /**
-     * @var int
+     * @var string
      * @ORM\Column
      * @Assert\NotBlank(
      *     message = "Veuillez renseigner un temps de préparation"
@@ -65,7 +71,7 @@ class Post
      *      maxMessage = "La durée de préparation maximum est de 180 minutes"
      * )
      */
-    private int $duration;
+    private string $duration;
 
     /**
      * @var DateTimeImmutable
@@ -114,6 +120,22 @@ class Post
     }
 
     /**
+     * @return string|null
+     */
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string|null $picture
+     */
+    public function setPicture(?string $picture): void
+    {
+        $this->picture = $picture;
+    }
+
+    /**
      * @return DateTimeImmutable
      */
     public function getPublishedAt(): DateTimeImmutable
@@ -146,15 +168,15 @@ class Post
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
-    public function getDuration(): ?int
+    public function getDuration(): ?string
     {
         return $this->duration;
     }
 
     /**
-     * @param int $duration
+     * @param string $duration
      */
     public function setDuration(string $duration): void
     {

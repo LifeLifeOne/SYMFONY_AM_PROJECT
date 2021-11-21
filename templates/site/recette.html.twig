@@ -3,7 +3,7 @@
 {% block body %}
 
     <h1>{{ recette.title }}</h1>
-
+    <img src="{{ asset(recette.picture) }}" alt="{{ recette.title }}"><br>
     <p>{{ recette.content }}</p>
     <small>{{ recette.duration }}</small><br>
     <strong>{{ recette.publishedAt|date("d/m/Y") }}</strong>
