@@ -1,12 +1,28 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
+<div class="container is-fluid">
+    <div class="card">
+        <div class="card-image">
+            <figure class="image">
+                <img src="{{ asset(recette.image) }}" alt="{{ recette.title }}">
+            </figure>
+        </div>
+        <div class="card-content">
+            <div class="media">
+                <div class="media-content">
+                    <p class="title is-4">{{ recette.title }}</p>
+                    <small>{{ recette.duration }}</small><br>
+                    <small>{{ recette.publishedAt|date("d/m/Y") }}</small>
+                </div>
+            </div>
+            <div class="content">
+                {{ recette.content }}
+            </div>
+        </div>
+    </div>
+</div>
 
-    <h1>{{ recette.title }}</h1>
-    <img src="{{ asset(recette.image) }}" alt="{{ recette.title }}"><br>
-    <p>{{ recette.content }}</p>
-    <small>{{ recette.duration }}</small><br>
-    <strong>{{ recette.publishedAt|date("d/m/Y") }}</strong>
+<div class="container is-fluid">
 
     {{ form_start(form) }}
         {{ form_row(form.author) }}
@@ -18,5 +34,7 @@
             <li>{{ comment.author }}: {{ comment.content }}</li>
         {% endfor %}
     </ul>
+
+</div>
 
 {% endblock %}

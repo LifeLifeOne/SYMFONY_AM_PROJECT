@@ -89,7 +89,9 @@ class SiteController extends AbstractController
     {
         $recette = new Post();
 
-        $form = $this->createForm(PostType::class, $recette)->handleRequest($request);
+        $form = $this->createForm(PostType::class, $recette, [
+            "validation_groups" => ["Default", "create"]
+        ])->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -124,14 +126,33 @@ class SiteController extends AbstractController
      * @Route("/modifier-recette/{id}", name="recette_update")
      * @param Request $request
      * @param Post $recette
+     * @param SluggerInterface $sluggerstring
+     * @param $uploadsAbsoluteDir
+     * @param string $uploadsRelativeDir
      * @return Response
-     * @throws \Exception
      */
-    public function update(Request $request, Post $recette): Response
+    public function update(Request $request, Post $recette, SluggerInterface $slugger, string $uploadsAbsoluteDir, string $uploadsRelativeDir): Response
     {
         $form = $this->createForm(PostType::class, $recette)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $file */
+            $file = $form->get("file")->getData();
+
+            if ($file !== null) {
+                $fileName = sprintf(
+                    "%s_%s.%s",
+                    $slugger->slug($file->getClientOriginalName()),
+                    uniqid(),
+                    $file->getClientOriginalExtension()
+                );
+
+                $file->move($uploadsAbsoluteDir, $fileName);
+
+                $recette->setImage($uploadsRelativeDir . "/" . $fileName);
+            }
+
 
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute("recette_read", [

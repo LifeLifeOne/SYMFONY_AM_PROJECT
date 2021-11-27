@@ -36,9 +36,12 @@ class PostType extends AbstractType
             ])
             ->add("file", FileType::class, [
                 "mapped" => false,
+                "required" => false,
                 "constraints" => [
                     new Image(),
-                    new NotNull()
+                    new NotNull([
+                        "groups" => "create"
+                    ])
                 ]
             ])
         ;
