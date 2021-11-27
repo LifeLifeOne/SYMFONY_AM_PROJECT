@@ -22,6 +22,7 @@ class SiteController extends AbstractController
 {
     /**
      * @Route("/", name="index")
+     * @param Request $request
      * @return Response
      */
     public function index(Request $request): Response
@@ -51,7 +52,7 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("/recette-{id}", name="recette_read")
+     * @Route("/recette/{id}", name="recette_read")
      * @param Request $request
      * @param Post $recette
      * @return Response
@@ -108,6 +109,7 @@ class SiteController extends AbstractController
 
             $this->getDoctrine()->getManager()->persist($recette);
             $this->getDoctrine()->getManager()->flush();
+
             return $this->redirectToRoute("recette_read", [
                 "id" => $recette->getId()
             ]);
